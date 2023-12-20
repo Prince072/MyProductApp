@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.premich</groupId>
-    <artifactId>user</artifactId>
+    <artifactId>MyProductApp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>user</name>
     <description>user</description>
