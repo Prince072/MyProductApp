@@ -1,4 +1,4 @@
-package com.premich.user.payment;
+package com.premich.customer.payment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

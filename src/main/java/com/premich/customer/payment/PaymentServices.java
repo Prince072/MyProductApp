@@ -1,7 +1,6 @@
-package com.premich.user.payment;
+package com.premich.customer.payment;
 
-import com.premich.user.registration.RegistrationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.premich.customer.Customer.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,22 +8,24 @@ import java.util.UUID;
 
 @Service
 public class PaymentServices {
+
+
     private final List<Currency> AVAIlABLE_CURRENCY = List.of(Currency.USD,Currency.ZAR);
-    private RegistrationRepository registrationRepository;
+    private CustomerRepository customerRepository;
     private PaymentRepository paymentRepository;
     private CardPaymentCharger cardPaymentCharger;
-    @Autowired
-    public PaymentServices(RegistrationRepository registrationRepository, PaymentRepository paymentRepository, CardPaymentCharger cardPaymentCharger) {
-        this.registrationRepository = registrationRepository;
+
+    public PaymentServices(CustomerRepository customerRepository, PaymentRepository paymentRepository, CardPaymentCharger cardPaymentCharger) {
+        this.customerRepository = customerRepository;
         this.paymentRepository = paymentRepository;
         this.cardPaymentCharger = cardPaymentCharger;
     }
 
     void chargeCard(UUID customerId,PaymentRequest paymentRequest) {
         //Does the customer exist
-        boolean isCustomerPresent = registrationRepository.existsById(customerId);
-        if (!isCustomerPresent) {
-            throw new IllegalStateException(String.format("Customer [%s] is already registerd", customerId));
+        boolean isCustomerFound = customerRepository.findById(customerId).isPresent();
+        if (!isCustomerFound) {
+            throw new IllegalStateException(String.format("Customer with [%s] id not found", customerId));
         }
 
         //Do we support the currency ?
@@ -45,7 +46,7 @@ public class PaymentServices {
         if (!cardPaymentCharge.isCardDebited()){
             throw new IllegalStateException(String.format("we can not charge the card",customerId));
         }
-        paymentRequest.getPayment().getCustomerId();
+        paymentRequest.getPayment().setCustomerId(customerId);
 
         paymentRepository.save(paymentRequest.getPayment());
 

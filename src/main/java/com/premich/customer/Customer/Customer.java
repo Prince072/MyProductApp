@@ -1,5 +1,7 @@
-package com.premich.user.registration;
+package com.premich.customer.Customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -9,22 +11,25 @@ import java.util.UUID;
 
 
 @Entity
-public class Registration {
+@JsonIgnoreProperties(value = {"id"},allowGetters = true)
+public class Customer {
 
     @Id
     private UUID id;
     @NotBlank
+    @Column(nullable = false)
     private String name;
     @NotBlank
+    @Column(nullable = false,unique = true)
     private String phoneNumber;
 
-    public Registration(UUID id, String name, String phoneNumber) {
+    public Customer(UUID id, String name, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
 
-    public Registration() {
+    public Customer() {
     }
 
     public UUID getId() {
@@ -55,7 +60,7 @@ public class Registration {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Registration that = (Registration) o;
+        Customer that = (Customer) o;
         return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(phoneNumber, that.phoneNumber);
     }
 

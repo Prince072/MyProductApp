@@ -1,4 +1,4 @@
-package com.premich.user.payment;
+package com.premich.customer.payment;
 
 public class cardPaymentCharge {
 

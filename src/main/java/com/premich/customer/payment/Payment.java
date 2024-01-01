@@ -1,4 +1,4 @@
-package com.premich.user.payment;
+package com.premich.customer.payment;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,4 +1,4 @@
-package com.premich.user.registration;
+package com.premich.customer.Customer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,22 +10,22 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@DataJpaTest
-class RegistrationRepositoryTest {
+@DataJpaTest(properties = {"spring.jpa.properties.javax.persistence.validation.mode=none"})
+class CustomerRepositoryTest {
 
     @Autowired
-    private RegistrationRepository underTest;
+    private CustomerRepository underTest;
 
     @Test
     void itShouldSelectUserByPhoneNumber() {
         //given
         String phoneNumber = "082";
         UUID id = UUID.randomUUID();
-        Registration user = new Registration(id, "Mac", phoneNumber);
+        Customer user = new Customer(id, "Mac", phoneNumber);
         //when
         underTest.save(user);
         //then
-        Optional<Registration> optionalRegistration = underTest.findById(id);
+        Optional<Customer> optionalRegistration = underTest.findById(id);
         assertThat(optionalRegistration).isPresent()
                 .hasValueSatisfying(r -> {
 //                    assertThat(r.getPhoneNumber().equals(phoneNumber));

@@ -1,4 +1,4 @@
-package com.premich.user;
+package com.premich.customer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
